@@ -74,12 +74,25 @@ public class GameManager : MonoBehaviour
 
     }
 
+    void Shift()
+    {
+
+    }
+
 }
 
 [Serializable]
 public struct BlockType
 {
-    public string text;
     public string colorText;
     public Color color;
+}
+
+public enum GameState
+{
+    GenerateLevel,
+    WaitingInput,
+    Moving,
+    Win,
+    Lose
 }

@@ -217,6 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1462864490}
   - component: {fileID: 1462864489}
+  - component: {fileID: 1462864491}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -242,14 +243,11 @@ MonoBehaviour:
   boardPrefab: {fileID: 8178230502700660961, guid: 2bbf74fccb8659b4d9da8d93a8ec22cb, type: 3}
   blockPrefab: {fileID: 3035408708324074316, guid: 32cbeff50e7e2dc47b621473fb025637, type: 3}
   types:
-  - text: W
-    colorText: Red
+  - colorText: Red
     color: {r: 0.8196079, g: 0.4039216, b: 0.39607847, a: 1}
-  - text: N
-    colorText: Blue
+  - colorText: Blue
     color: {r: 0.5764706, g: 0.79215693, b: 0.7176471, a: 1}
-  - text: E
-    colorText: Yellow
+  - colorText: Yellow
     color: {r: 0.9490197, g: 0.8235295, b: 0.5764706, a: 1}
 --- !u!4 &1462864490
 Transform:
@@ -266,3 +264,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1462864491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462864488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60fc510732a67546bed1994c7eec31d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
