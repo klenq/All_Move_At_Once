@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public string colorText;
+    [SerializeField] private SpriteRenderer renderer;
+    [SerializeField] private TextMeshPro text;
+    public void Init(BlockType type)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        colorText = type.colorText;
+        renderer.color = type.color;
+        text.text = type.text.ToString();
     }
 }
