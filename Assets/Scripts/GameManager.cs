@@ -8,15 +8,15 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private int width = 4;
-    [SerializeField] private int height = 4;
+    [SerializeField] public int width = 4;
+    [SerializeField] public int height = 4;
     [SerializeField] private Node nodePrefab;
     [SerializeField] private SpriteRenderer boardPrefab;
-    [SerializeField] private Block blockPrefab;
+    // [SerializeField] private Block blockPrefab;
     [SerializeField] private List<BlockType> types;
 
     private List<Node> nodes;
-    private List<Block> blocks;
+    public List<Block> blocks;
     private BlockType GetBlockTypeByColor(string color) => types.First(t => t.colorText == color);
 
     private void Start()
@@ -44,38 +44,40 @@ public class GameManager : MonoBehaviour
 
         Camera.main.transform.position = new Vector3(center.x, center.y, -10);
 
-        SpawnBlocks(1, "Red");
-        SpawnBlocks(1, "Blue");
-        SpawnBlocks(1, "Yellow");
+        //Origin
+        SpawnBlocks(Vector2.up, "Red", new Vector2(0,0));
+        SpawnBlocks(Vector2.right, "Blue", new Vector2(1,1));
+        SpawnBlocks(Vector2.down, "Yellow", new Vector2(0,2));
+
+
+        //Destination
+        SpawnDestinationBlocks("Red_D", new Vector2(0, 3));
+        SpawnDestinationBlocks("Blue_D", new Vector2(3, 1));
+        SpawnDestinationBlocks("Yellow_D", new Vector2(3, 2));
     }
 
-    void SpawnBlocks(int amount, string color)
+    void SpawnBlocks(Vector2 direction, string color, Vector2 pos)
     {
-        var freeNodes = nodes.Where(n => n.OccupiedBlock == null).OrderBy(b => Random.value);
 
-        foreach (var node in freeNodes.Take(amount))
-        {
-            var block = Instantiate(blockPrefab, node.Pos, Quaternion.identity);
-            block.Init(GetBlockTypeByColor(color));
-        }
+        //Generate block on randomly selected node position 
 
+        var block = Instantiate(GetBlockTypeByColor(color).blockPrefab, pos, Quaternion.identity);
+        block.Init(GetBlockTypeByColor(color), direction);
+        //Rotate the visual of the block
+        block.transform.Find("Visual").transform.rotation = Quaternion.FromToRotation(Vector2.up, direction);
+        blocks.Add(block);
 
-/*        for (int i = 0; i < amount; i++)
-        {
-            var block = Instantiate(blockPrefab);
-
-        }*/
-
-        if (freeNodes.Count() == 1)
-        {
-            //lost the game
-            return;
-        }
 
     }
-
-    void Shift()
+    void SpawnDestinationBlocks(string color, Vector2 pos)
     {
+
+        //Generate block on randomly selected node position 
+
+        var block = Instantiate(GetBlockTypeByColor(color).blockPrefab, pos, Quaternion.identity);
+        block.Init(GetBlockTypeByColor(color), Vector2.up);
+        blocks.Add(block);
+
 
     }
 
@@ -85,7 +87,8 @@ public class GameManager : MonoBehaviour
 public struct BlockType
 {
     public string colorText;
-    public Color color;
+    // public Color color;
+    public Block blockPrefab;
 }
 
 public enum GameState

@@ -7,15 +7,15 @@ public class Block : MonoBehaviour
 {
     public string colorText;
     public Vector2 Pos => transform.position;
-    [SerializeField] private SpriteRenderer renderer;
+    [SerializeField] private Block blockPrefab;
     [SerializeField] private TextMeshPro text;
     public Vector2 direction = Vector2.right;
     private int loopCount = 0;
-    public void Init(BlockType type)
+    public void Init(BlockType type, Vector2 direction)
     {
         colorText = type.colorText;
-        renderer.color = type.color;
-        direction = Vector2.right;
+        blockPrefab = type.blockPrefab;
+        this.direction = direction;
     }
 
     private void Start()
