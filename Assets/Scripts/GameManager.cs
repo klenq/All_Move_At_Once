@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpriteRenderer boardPrefab;
     // [SerializeField] private Block blockPrefab;
     [SerializeField] private List<BlockType> types;
+    //Scene Initial setup
+    [SerializeField] private List<BlockPos> Block_Position;
+    [SerializeField] private List<BlockDes> Block_Destination;
 
     private List<Node> nodes;
     public List<Block> blocks;
@@ -45,15 +48,22 @@ public class GameManager : MonoBehaviour
         Camera.main.transform.position = new Vector3(center.x, center.y, -10);
 
         //Origin
-        SpawnBlocks(Vector2.up, "Red", new Vector2(0,0));
-        SpawnBlocks(Vector2.right, "Blue", new Vector2(1,1));
-        SpawnBlocks(Vector2.down, "Yellow", new Vector2(0,2));
-
+        //SpawnBlocks(Vector2.up, "Red", new Vector2(0,0));
+        //SpawnBlocks(Vector2.right, "Blue", new Vector2(1,1));
+        //SpawnBlocks(Vector2.down, "Yellow", new Vector2(0,2));
+        foreach (var pos in Block_Position)
+        {
+            SpawnBlocks(pos.direction, pos.color, pos.pos);
+        }
 
         //Destination
-        SpawnDestinationBlocks("Red_D", new Vector2(0, 3));
-        SpawnDestinationBlocks("Blue_D", new Vector2(3, 1));
-        SpawnDestinationBlocks("Yellow_D", new Vector2(3, 2));
+        //SpawnDestinationBlocks("Red_D", new Vector2(0, 3));
+        //SpawnDestinationBlocks("Blue_D", new Vector2(3, 1));
+        //SpawnDestinationBlocks("Yellow_D", new Vector2(3, 2));
+        foreach (var pos in Block_Destination)
+        {
+            SpawnDestinationBlocks(pos.color, pos.pos);
+        }
     }
 
     void SpawnBlocks(Vector2 direction, string color, Vector2 pos)
@@ -89,6 +99,20 @@ public struct BlockType
     public string colorText;
     // public Color color;
     public Block blockPrefab;
+}
+
+[Serializable]
+public struct BlockPos
+{
+    public Vector2 direction;
+    public string color;
+    public Vector2 pos;
+}
+[Serializable]
+public struct BlockDes
+{
+    public string color;
+    public Vector2 pos;
 }
 
 public enum GameState
