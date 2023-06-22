@@ -28,7 +28,7 @@ public class MouseControl : MonoBehaviour, IPointerDownHandler, IPointerClickHan
         Vector3 mousePos = Input.mousePosition;
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("mouse clicked");
+            //Debug.Log("mouse clicked");
             Ray cubeRay = Camera.main.ScreenPointToRay(mousePos);
             RaycastHit cubeHit;
 
@@ -37,7 +37,7 @@ public class MouseControl : MonoBehaviour, IPointerDownHandler, IPointerClickHan
                 Debug.Log("We hit " + cubeHit.collider.name);
                 if (cubeHit.collider.tag == "Block")
                 {
-                    // Debug.Log("touched block");
+                    //Debug.Log("touched block");
                     Block block = cubeHit.transform.GetComponent<Block>();
                     block.LoopingDirections();
                 }

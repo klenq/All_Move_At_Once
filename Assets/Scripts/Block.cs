@@ -9,6 +9,7 @@ public class Block : MonoBehaviour
     public Vector2 Pos => transform.position;
     [SerializeField] private Block blockPrefab;
     [SerializeField] private TextMeshPro text;
+    [SerializeField] private GameObject visual;
     public Vector2 direction = Vector2.right;
     private int loopCount = 0;
     public void Init(BlockType type, Vector2 direction)
@@ -29,7 +30,9 @@ public class Block : MonoBehaviour
 
     void ModifyBlockDisplay()
     {
-        if(direction == Vector2.up)
+        visual.transform.rotation = Quaternion.FromToRotation(Vector2.up, direction);
+
+        if (direction == Vector2.up)
         {
             text.text = "N";
             return;
@@ -49,6 +52,7 @@ public class Block : MonoBehaviour
             text.text = "E";
             return;
         }
+        
     }
 
     public void LoopingDirections()
@@ -71,5 +75,6 @@ public class Block : MonoBehaviour
             default:
                 break;
         }
+        // visual.transform.Rotate(Vector3.forward * -90);
     }
 }

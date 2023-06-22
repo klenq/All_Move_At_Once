@@ -51,6 +51,7 @@ MonoBehaviour:
   colorText: 
   blockPrefab: {fileID: 0}
   text: {fileID: 2145179308238534826}
+  visual: {fileID: 6406233902068282180}
   direction: {x: 1, y: 0}
 --- !u!65 &8600511243284441724
 BoxCollider:
