@@ -9,6 +9,10 @@ public class Shift : MonoBehaviour
     GameObject[] blocksObjects;
     private List<Block> blocks;
     [SerializeField] Button button;
+    //record block's previous location
+    Dictionary<string, Vector2> prevPos = new Dictionary<string, Vector2>();
+    // Dictionary <string, Vector2> prevPos = new Dictionary<sting, Vector2>();
+    private List<Block> stopedBlocks = new List<Block>();
     
     // Start is called before the first frame update
     void Start()
@@ -34,6 +38,7 @@ public class Shift : MonoBehaviour
         int height = FindObjectOfType<GameManager>().height;
         Debug.Log("Current Grid dimention is " + width + "x" + height);
 
+        
 
         //for each block, we shift one step a time, until it hits the edge
         //we should also roll back the blocks position when there is a conflict 
@@ -47,10 +52,35 @@ public class Shift : MonoBehaviour
                 else if (block.direction.Equals(Vector2.down) && block.Pos.y == 0) { continue; }
                 else if (block.direction.Equals(Vector2.right) && block.Pos.x == width - 1) { continue; }
                 else if (block.direction.Equals(Vector2.left) && block.Pos.x == 0) { continue; }
+                if (stopedBlocks.Contains(block)) { continue; }
                 StepMove(1, block);
             }
             //TODO
             //Check whether any of the block is occupying the same node, roll back if that happend
+            //if blocks' current position is the same, we need to roll back those blocks
+            //we need to record the blocks that are stoped
+            //check if any block in blocks have the same Pos
+            //if so, we need to roll back those blocks
+            for (int k = 0; k < blocks.Count; k++)
+            {
+                for (int j = 0; j < blocks.Count; j++)
+                {
+                    if (k == j) { continue; }
+                    if (blocks[k].Pos == blocks[j].Pos)
+                    {
+                        stopedBlocks.Add(blocks[k]);
+                        stopedBlocks.Add(blocks[j]);
+                        //roll back the block's position
+                        blocks[k].transform.position = prevPos[blocks[k].colorText];
+                        blocks[j].transform.position = prevPos[blocks[j].colorText];
+                    }
+                }
+            }
+
+            
+            
+
+
 
             //wait for some time for the next moving round
             yield return new WaitForSeconds(1);
@@ -81,7 +111,9 @@ public class Shift : MonoBehaviour
 
     void StepMove(int step, Block block)
     {
-        
+        //record the previous position
+        prevPos[block.colorText] =  block.Pos;
+
         var direction = block.direction;
         block.transform.position = block.Pos + direction;
         Debug.Log("block position after shift is: " + block.Pos);
