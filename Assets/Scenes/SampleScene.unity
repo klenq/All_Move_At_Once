@@ -727,6 +727,7 @@ MonoBehaviour:
   - colorText: Yellow_D
     blockPrefab: {fileID: 4368989598815706508, guid: 16c172c90555140449fa2ab0832d34d5, type: 3}
   blocks: []
+  levelTexture: {fileID: 2800000, guid: 3a8f02ee77ca04a57be139b7706984a9, type: 3}
 --- !u!4 &1462864490
 Transform:
   m_ObjectHideFlags: 0
